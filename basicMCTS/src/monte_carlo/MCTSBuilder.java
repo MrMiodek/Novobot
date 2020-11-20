@@ -2,10 +2,18 @@ package monte_carlo;
 
 import boardgame.custom_functions.*;
 
+/**
+ * Basic builder of Monte-Carlo Tree Search agents.
+ */
 public class MCTSBuilder {
 
     MCTSConfig config = new MCTSConfig();
 
+    /**
+     *
+     * @param timeCalculator
+     * @return
+     */
     public MCTSBuilder withTimeCalculator(TimeCalculator timeCalculator){
         config.timeCalculator = timeCalculator;
         return this;

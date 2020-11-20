@@ -4,12 +4,16 @@ import boardgame.elements.Action;
 import boardgame.elements.GameActor;
 import boardgame.elements.GameConfig;
 import boardgame.elements.GameState;
-import monte_carlo.MCTSBuilder;
-import monte_carlo.MCTSConfig;
 import monte_carlo.MonteCarloTreeSearch;
 
 import java.util.Map;
 
+
+/**
+ * Simple class for play-testing different games / mcts-actors configurations
+ * This class can be extended and / or its methods can be overwritten
+ * in order to (for example) set different logs and enable more agent settings
+ */
 public class PlayOutTester {
 
     MonteCarloTreeSearch agent;
@@ -20,6 +24,11 @@ public class PlayOutTester {
         this.agent = agent;
     }
 
+    /**
+     * This function does create single game and run it to the end.
+     * For clarity it probably should have any noticeable side effects between runs.
+     * Self-improving agents should modify copy of themselves (?)
+     */
     public void playout(){
         GameState gameState = gameConfig.getInitialGameState();
         logBeforeGame(gameState);

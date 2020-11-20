@@ -1,7 +1,5 @@
 package boardgame.elements;
 
-import tree.Node;
-
 import java.util.List;
 import java.util.Map;
 

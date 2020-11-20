@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 public class Node<GS extends GameState, GA extends GameActor, A extends Action<GS,GA>, N extends Node<GS,GA,A,N>> {
 
     /**
-     * action that lead us to this Node
+     * last action that lead us to this Node
      */
     private A action;
 
     /**
-     * Node representing point of the game before @action happened
+     * Node representing point of the game before last action happened
      */
     private N parent;
 
@@ -32,7 +32,7 @@ public class Node<GS extends GameState, GA extends GameActor, A extends Action<G
     private List<N> childArray;
 
     /**
-     * Number of times this node has been visited in MCTS search
+     * Number of times this node has been visited in MCTS simulations
      */
     private int visitCount;
 
@@ -42,7 +42,7 @@ public class Node<GS extends GameState, GA extends GameActor, A extends Action<G
     private int winScore;
 
     /**
-     * Function returning short description of previous action and current score and visit count of the node.
+     * Function returning short description of last action, current score and visit count of the node.
      * @return short description of current node
      */
     @Override
@@ -53,8 +53,10 @@ public class Node<GS extends GameState, GA extends GameActor, A extends Action<G
             return "root"+" "+winScore+"/"+visitCount;
     }
 
+
+    //TODO should game randomness be game actor? and if so, how should it be handled?
     /**
-     * @return actor which led us to current state of the game or null if this is root node
+     * @return actor who's action led us to current state of the game or null if this is root node
      */
     public GA getPreviousActor(){
         if(action!=null){

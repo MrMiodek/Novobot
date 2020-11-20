@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 
 /**
- * Basic implementation of Monte Carlo tree search
+ * Basic implementation of Monte-Carlo Tree Search
  * It should be able to handle most of finite turn based games.
  */
 public class MonteCarloTreeSearch
@@ -27,27 +27,31 @@ public class MonteCarloTreeSearch
 
     /**
      * timeCalculator function calculate how much time can MCTS think on given game state
+     * @see TimeCalculator
      */
     TimeCalculator<GS> timeCalculator;
 
     /**
      * Function calculating best scoring child of current situation node
+     * @see ChildFinder
      */
     ChildFinder<GS,GA,A,N> childFinder;
 
     /**
      * Function responsible to update node score after game concludes
+     * @see ScoreUpdater
      */
     ScoreUpdater<GA> scoreUpdater;
 
     /**
      * Function that chooses action to play for given GameState
+     * @see ActionChooser
      */
     ActionChooser<A,GS> actionChooser;
 
 
     /**
-     * Create MCTS agent with functions specific for specific BoardGame
+     * Create MCTS agent with functions adjusted for specific BoardGame
      * @param config object containing functions specific for given game and its configuration
      */
     public MonteCarloTreeSearch(MCTSConfig config){
@@ -57,6 +61,10 @@ public class MonteCarloTreeSearch
         this.actionChooser = config.actionChooser;
     }
 
+    /**
+     * Function that makes decision on what action to make based on current state of the game
+     * In general MCTS chooses actions that were taken in most amount of simulations
+     */
     @Override
     public A chooseActionToPlay(GS gameState) {
         N analysis = analyzePossibleMoves(gameState);
@@ -67,7 +75,9 @@ public class MonteCarloTreeSearch
     }
 
     /**
-     * Function analyzing current situation
+     * Function analyzing current state of the game and giving score to analysed moves
+     * Analysis is made at least for a time returned by set timeCalculator
+     * @see TimeCalculator
      * @param gameState state of the game to analyze
      * @return root node of the analysis tree
      */
@@ -79,7 +89,7 @@ public class MonteCarloTreeSearch
         do{
             GS tmpState = (GS) gameState.copy();
             // 1. Move down the tree up to promising child node
-            N promisingNode = runGameUpToPromisingNode(tmpState, rootNode);
+            N promisingNode = runGameUpToPromisingLeaf(tmpState, rootNode);
             // 2. Expand promising node
             if (tmpState.getEndScore() == null)
                 expandNode(tmpState, promisingNode);
@@ -90,14 +100,19 @@ public class MonteCarloTreeSearch
                 nodeToExplore = promisingNode.getRandomChildNode();
                 nodeToExplore.getAction().apply(tmpState);
             }
-            Map<GA,Integer> endScores = simulateRandomPlayout(tmpState, nodeToExplore);
+            Map<GA,Integer> endScores = simulatePlayout(tmpState, nodeToExplore);
             // 4. Update Nodes values
             backPropogation(nodeToExplore, endScores);
         } while (System.currentTimeMillis() < end);
         return rootNode;
     }
 
-    private N runGameUpToPromisingNode(GS gameState, N rootNode) {
+    /**
+     * Function that chooses next promising child nodes until the last game state covered by MCTS tree
+     * @see ChildFinder
+     * @return promising leaf node of given MCTS tree
+     */
+    private N runGameUpToPromisingLeaf(GS gameState, N rootNode) {
         N node = rootNode;
         while (node.getChildArray().size() != 0) {
             node = childFinder.getBestChild(node);
@@ -106,6 +121,10 @@ public class MonteCarloTreeSearch
         return node;
     }
 
+    /**
+     * Create children for given leaf node based on list
+     * of all possible actions in current state of the game
+     */
     private void expandNode(GS gameState, N node) {
         node.setChildArray(
                 (List) gameState.getAllPossibleActions().stream()
@@ -117,6 +136,11 @@ public class MonteCarloTreeSearch
                 .collect(Collectors.toList()));
     }
 
+    /**
+     * Function that traverse from leaf node
+     * up to root of MCTS tree to update score of all visited nodes
+     * @see ScoreUpdater
+     */
     private void backPropogation(N nodeToExplore, Map<GA,Integer> endScore) {
         N tempNode = nodeToExplore;
         while (tempNode != null) {
@@ -126,7 +150,13 @@ public class MonteCarloTreeSearch
         }
     }
 
-    private Map<GA,Integer> simulateRandomPlayout(GS gameState, N node) {
+    /**
+     * Function that simulate playout - complete the game
+     * from given state of the game. Usually used on leaf of MCTS tree
+     * with current state of the game
+     * @return map of agents and their results at the end of the playout
+     */
+    private Map<GA,Integer> simulatePlayout(GS gameState, N node) {
         N tmpNode = (N) new Node<>(node);
         GS tmpState = (GS) gameState.copy();
         Map<GA, Integer> endScore = tmpState.getEndScore();
@@ -136,13 +166,19 @@ public class MonteCarloTreeSearch
             tmpNode.addScore(score);
         }
         while(endScore==null){
-            tmpState = playSmartMove(tmpState);
+            tmpState = simulatePlayoutMove(tmpState);
             endScore = tmpState.getEndScore();
         }
         return endScore;
     }
 
-    private GS playSmartMove(GS gameState){
+    /**
+     * Function that makes single move in simulation playout
+     * Move is chosen based on set actionChooser
+     * @see ActionChooser
+     * @return state of the game after simulated move
+     */
+    private GS simulatePlayoutMove(GS gameState){
         Action<GS, GA> action = actionChooser.chooseAction(gameState);
         action.apply(gameState);
         return gameState;
