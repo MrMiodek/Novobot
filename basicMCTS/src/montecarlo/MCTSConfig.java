@@ -39,7 +39,7 @@ public class MCTSConfig {
      */
     public ScoreUpdater scoreUpdater = (node, endScore) ->{
         if(node.getParent() != null)
-            node.addScore(endScore.get(node.getPreviousActor()));
+            node.addScore( (Integer) endScore.get(node.getPreviousActor()));
     };
 
     /**
