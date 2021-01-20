@@ -1,7 +1,7 @@
 import elements.TicTacToeConfig;
 import gameplay.PlayOutTester;
-import monte_carlo.MCTSBuilder;
-import monte_carlo.MonteCarloTreeSearch;
+import montecarlo.MCTSBuilder;
+import montecarlo.MonteCarloTreeSearch;
 
 public class TicTacToeGame {
 

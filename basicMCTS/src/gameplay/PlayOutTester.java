@@ -4,7 +4,7 @@ import boardgame.elements.Action;
 import boardgame.elements.GameActor;
 import boardgame.elements.GameConfig;
 import boardgame.elements.GameState;
-import monte_carlo.MonteCarloTreeSearch;
+import montecarlo.MonteCarloTreeSearch;
 
 import java.util.Map;
 
@@ -14,12 +14,12 @@ import java.util.Map;
  * This class can be extended and / or its methods can be overwritten
  * in order to (for example) set different logs and enable more agent settings
  */
-public class PlayOutTester {
+public class PlayOutTester<GS extends GameState, AC extends Action> {
 
-    MonteCarloTreeSearch agent;
-    GameConfig gameConfig;
+    Agent<GS,AC> agent;
+    GameConfig<GS> gameConfig;
 
-    public PlayOutTester(GameConfig gameConfig, MonteCarloTreeSearch agent){
+    public PlayOutTester(GameConfig<GS> gameConfig, MonteCarloTreeSearch agent){
         this.gameConfig = gameConfig;
         this.agent = agent;
     }
@@ -30,10 +30,10 @@ public class PlayOutTester {
      * Self-improving agents should modify copy of themselves (?)
      */
     public void playout(){
-        GameState gameState = gameConfig.getInitialGameState();
+        GS gameState = gameConfig.getInitialGameState();
         logBeforeGame(gameState);
         while(gameState.getEndScore() == null){
-            Action action = agent.chooseActionToPlay(gameState);
+            AC action = agent.chooseActionToPlay(gameState);
             logBeforeMove(gameState,action);
             action.apply(gameState);
             logAfterMove(gameState, action);
@@ -41,17 +41,17 @@ public class PlayOutTester {
         logAfterGame(gameState);
     }
 
-    public void logBeforeGame(GameState gameState){
+    public void logBeforeGame(GS gameState){
         System.out.println(gameState);
     }
 
-    public void logBeforeMove(GameState gameState, Action action){}
+    public void logBeforeMove(GS gameState, AC action){}
 
-    public void logAfterMove(GameState gameState, Action action){
+    public void logAfterMove(GS gameState, AC action){
         System.out.println(gameState);
     }
 
-    public void logAfterGame(GameState gameState){
+    public void logAfterGame(GS gameState){
         Map<GameActor, Integer> endScore = gameState.getEndScore();
         for(Map.Entry<GameActor, Integer>  entry : endScore.entrySet()){
             System.out.println(entry.getKey() + " "+ entry.getValue());

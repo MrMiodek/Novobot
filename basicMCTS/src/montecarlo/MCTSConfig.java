@@ -1,6 +1,6 @@
-package monte_carlo;
+package montecarlo;
 
-import boardgame.custom_functions.*;
+import boardgame.customfunctions.*;
 import boardgame.elements.Action;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class MCTSConfig {
      * Default value:
      * 100ms
      */
-    TimeCalculator timeCalculator = any -> 100;
+    public TimeCalculator timeCalculator = any -> 100;
 
     /**
      * Function that chooses child node in MCTS tree from which we should start next simulation
@@ -29,7 +29,7 @@ public class MCTSConfig {
      * Default value:
      * @see BasicUCT
      */
-    ChildFinder bestChildFinder = new BasicUCT();
+    public ChildFinder bestChildFinder = new BasicUCT();
 
     /**
      * Function that updates MCTS node score after getting simulation result (endScore)
@@ -37,18 +37,18 @@ public class MCTSConfig {
      * Default value:
      * adding endscore to current node value
      */
-    ScoreUpdater scoreUpdater = (node, endScore) ->{
+    public ScoreUpdater scoreUpdater = (node, endScore) ->{
         if(node.getParent() != null)
-            node.addScore((Integer) endScore.get(node.getPreviousActor()));
+            node.addScore(endScore.get(node.getPreviousActor()));
     };
 
     /**
-     * Function that chooses action to take in current state of the game
+     * Function that chooses action to take during simulations
      * @see ActionChooser
      * Default value:
      * random legal action
      */
-    ActionChooser actionChooser = gameState -> {
+    public ActionChooser simulatedActionChooser = gameState -> {
         List<Action> actions = gameState.getAllPossibleActions();
         return actions.get(r.nextInt(actions.size()));
     };

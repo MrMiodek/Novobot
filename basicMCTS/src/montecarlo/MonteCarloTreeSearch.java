@@ -1,11 +1,11 @@
-package monte_carlo;
+package montecarlo;
 
 
-import boardgame.custom_functions.*;
+import boardgame.customfunctions.*;
 import boardgame.elements.Action;
 import boardgame.elements.GameActor;
 import boardgame.elements.GameState;
-import gameplay.Agent;
+import gameplay.MCTSAgent;
 import tree.Node;
 import tree.Tree;
 
@@ -23,7 +23,7 @@ public class MonteCarloTreeSearch
         A extends Action<GS,GA>,
         N extends Node<GS,GA,A,N>>
 
-        implements Agent<GS,A> {
+        implements MCTSAgent<GS,A, N> {
 
     /**
      * timeCalculator function calculate how much time can MCTS think on given game state
@@ -44,10 +44,10 @@ public class MonteCarloTreeSearch
     ScoreUpdater<GA> scoreUpdater;
 
     /**
-     * Function that chooses action to play for given GameState
+     * Function that chooses action to play for given GameState during simulations
      * @see ActionChooser
      */
-    ActionChooser<A,GS> actionChooser;
+    ActionChooser<A,GS> simulatedActionChooser;
 
 
     /**
@@ -58,16 +58,31 @@ public class MonteCarloTreeSearch
         this.timeCalculator = config.timeCalculator;
         this.childFinder = config.bestChildFinder;
         this.scoreUpdater = config.scoreUpdater;
-        this.actionChooser = config.actionChooser;
+        this.simulatedActionChooser = config.simulatedActionChooser;
     }
 
     /**
      * Function that makes decision on what action to make based on current state of the game
-     * In general MCTS chooses actions that were taken in most amount of simulations
      */
     @Override
     public A chooseActionToPlay(GS gameState) {
-        N analysis = analyzePossibleMoves(gameState);
+        return getDefaultActionChooser().chooseAction(gameState);
+    }
+
+    @Override
+    public ActionChooser<A,GS> getDefaultActionChooser(){
+        return gameState -> {
+            N analysis = analyzePossibleMoves(gameState);
+            return chooseActionAfterSimulations(analysis);
+        };
+    }
+
+    /**
+     * In general MCTS chooses actions that were taken in most amount of simulations
+     */
+    @Override
+    public A chooseActionAfterSimulations(N analysis){
+        System.out.println(analysis);
         return analysis.getChildArray().stream()
                 .max(Comparator.comparing(N::getVisitCount))
                 .get()
@@ -81,7 +96,8 @@ public class MonteCarloTreeSearch
      * @param gameState state of the game to analyze
      * @return root node of the analysis tree
      */
-    private N analyzePossibleMoves(GS gameState){
+    @Override
+    public N analyzePossibleMoves(GS gameState){
         long start = System.currentTimeMillis();
         long end = start + timeCalculator.getTimeToThink(gameState);
         Tree<N> tree = new Tree();
@@ -161,7 +177,7 @@ public class MonteCarloTreeSearch
         GS tmpState = (GS) gameState.copy();
         Map<GA, Integer> endScore = tmpState.getEndScore();
         if(endScore != null){
-            GA actor = (GA) tmpNode.getPreviousActor();
+            GA actor = tmpNode.getPreviousActor();
             Integer score = endScore.get(actor);
             tmpNode.addScore(score);
         }
@@ -179,8 +195,9 @@ public class MonteCarloTreeSearch
      * @return state of the game after simulated move
      */
     private GS simulatePlayoutMove(GS gameState){
-        Action<GS, GA> action = actionChooser.chooseAction(gameState);
+        Action<GS, GA> action = simulatedActionChooser.chooseAction(gameState);
         action.apply(gameState);
         return gameState;
     }
+
 }

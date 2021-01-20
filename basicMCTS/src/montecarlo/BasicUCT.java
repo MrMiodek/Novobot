@@ -1,6 +1,6 @@
-package monte_carlo;
+package montecarlo;
 
-import boardgame.custom_functions.ChildFinder;
+import boardgame.customfunctions.ChildFinder;
 import tree.Node;
 
 import java.util.Collections;
@@ -19,7 +19,7 @@ public class BasicUCT implements ChildFinder {
      * @param nodeVisit number of node visits
      * @return UCT value of given node
      */
-    private double uctValue(int totalVisit, double nodeWinScore, int nodeVisit) {
+    public double uctValue(int totalVisit, double nodeWinScore, int nodeVisit) {
 
         return (nodeWinScore / (double) nodeVisit) +
                 Math.sqrt(2 * Math.log(totalVisit) / (double) nodeVisit);

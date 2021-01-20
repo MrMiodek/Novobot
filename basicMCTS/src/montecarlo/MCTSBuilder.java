@@ -1,19 +1,24 @@
-package monte_carlo;
+package montecarlo;
 
-import boardgame.custom_functions.*;
+import boardgame.customfunctions.*;
 
 /**
  * Basic builder of Monte-Carlo Tree Search agents.
  */
 public class MCTSBuilder {
 
-    MCTSConfig config = new MCTSConfig();
+    protected MCTSConfig config;
 
-    /**
-     *
-     * @param timeCalculator
-     * @return
-     */
+    public MCTSBuilder(){
+        this.config = new MCTSConfig();
+    }
+
+    public MCTSBuilder(MCTSConfig config){
+        this.config = config;
+    }
+
+
+
     public MCTSBuilder withTimeCalculator(TimeCalculator timeCalculator){
         config.timeCalculator = timeCalculator;
         return this;
@@ -29,8 +34,8 @@ public class MCTSBuilder {
         return this;
     }
 
-    public MCTSBuilder withActionChooser(ActionChooser actionChooser){
-        config.actionChooser = actionChooser;
+    public MCTSBuilder withActionChooser(ActionChooser simulatedActionChooser){
+        config.simulatedActionChooser = simulatedActionChooser;
         return this;
     }
 

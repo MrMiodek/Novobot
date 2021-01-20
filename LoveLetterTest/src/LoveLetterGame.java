@@ -2,8 +2,8 @@ import boardgame.elements.Action;
 import boardgame.elements.GameState;
 import elements.LoveLetterConfig;
 import gameplay.PlayOutTester;
-import monte_carlo.MCTSBuilder;
-import monte_carlo.MonteCarloTreeSearch;
+import montecarlo.MCTSBuilder;
+import montecarlo.MonteCarloTreeSearch;
 
 public class LoveLetterGame {
 

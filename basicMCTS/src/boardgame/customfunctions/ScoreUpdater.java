@@ -1,4 +1,4 @@
-package boardgame.custom_functions;
+package boardgame.customfunctions;
 
 import boardgame.elements.GameActor;
 import tree.Node;
