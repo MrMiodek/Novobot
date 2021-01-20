@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Novobot">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/LoveLetterTest/src" />
+      <root url="file://$PROJECT_DIR$/basicMCTS/src" />
+      <root url="file://$PROJECT_DIR$/nanahoshiTest/src" />
+      <root url="file://$PROJECT_DIR$/ticTacToeTest/src" />
+    </SOURCES>
+  </library>
+</component>

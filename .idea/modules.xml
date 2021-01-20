@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/LoveLetterTest/LoveLetterTest.iml" filepath="$PROJECT_DIR$/LoveLetterTest/LoveLetterTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Novobot.iml" filepath="$PROJECT_DIR$/.idea/Novobot.iml" />
       <module fileurl="file://$PROJECT_DIR$/basicMCTS/basicMCTS.iml" filepath="$PROJECT_DIR$/basicMCTS/basicMCTS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nanahoshiTest/nanahoshiTest.iml" filepath="$PROJECT_DIR$/nanahoshiTest/nanahoshiTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/ticTacToeTest/ticTacToeTest.iml" filepath="$PROJECT_DIR$/ticTacToeTest/ticTacToeTest.iml" />
     </modules>
   </component>
