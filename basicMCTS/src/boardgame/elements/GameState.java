@@ -30,7 +30,7 @@ public interface GameState <GS extends  GameState, GA extends  GameActor, A exte
 
 
     /**
-     * Function calculating which actions are possible to take given current state of the game
+     * Function calculating which gameplay.actions are possible to take given current state of the game
      * @return list of all currently possible action
      */
     List<A> getAllPossibleActions();

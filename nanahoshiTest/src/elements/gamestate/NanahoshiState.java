@@ -1,10 +1,9 @@
 package elements.gamestate;
 
-import boardgame.elements.GameActor;
 import boardgame.elements.GameState;
 import elements.Alliance;
 import elements.actions.NanahoshiAction;
-import elements.board.Board;
+import elements.Board;
 import elements.tiles.Ship;
 import elements.tiles.Tile;
 import elements.tiles.TileSet;

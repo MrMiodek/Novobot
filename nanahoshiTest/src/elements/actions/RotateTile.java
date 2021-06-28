@@ -2,8 +2,8 @@ package elements.actions;
 
 
 import elements.Alliance;
-import elements.board.Coordinates;
-import elements.board.Field;
+import elements.Coordinates;
+import elements.Field;
 import elements.directions.Direction;
 import elements.directions.Rotation;
 import elements.gamestate.NanahoshiState;

@@ -1,6 +1,6 @@
 package elements.directions;
 
-import elements.board.Coordinates;
+import elements.Coordinates;
 
 import java.util.Optional;
 

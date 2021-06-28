@@ -78,7 +78,7 @@ public class MonteCarloTreeSearch
     }
 
     /**
-     * In general MCTS chooses actions that were taken in most amount of simulations
+     * In general MCTS chooses gameplay.actions that were taken in most amount of simulations
      */
     @Override
     public A chooseActionAfterSimulations(N analysis){
@@ -139,7 +139,7 @@ public class MonteCarloTreeSearch
 
     /**
      * Create children for given leaf node based on list
-     * of all possible actions in current state of the game
+     * of all possible gameplay.actions in current state of the game
      */
     private void expandNode(GS gameState, N node) {
         node.setChildArray(

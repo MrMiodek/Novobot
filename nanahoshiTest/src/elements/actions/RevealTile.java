@@ -1,8 +1,8 @@
 package elements.actions;
 
 import elements.Alliance;
-import elements.board.Coordinates;
-import elements.board.Field;
+import elements.Coordinates;
+import elements.Field;
 import elements.gamestate.NanahoshiState;
 import elements.tiles.Ship;
 import elements.tiles.Tile;

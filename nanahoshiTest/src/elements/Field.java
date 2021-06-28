@@ -1,4 +1,4 @@
-package elements.board;
+package elements;
 
 import elements.tiles.Tile;
 

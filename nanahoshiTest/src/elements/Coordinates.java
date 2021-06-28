@@ -1,4 +1,4 @@
-package elements.board;
+package elements;
 
 import java.util.ArrayList;
 import java.util.Iterator;

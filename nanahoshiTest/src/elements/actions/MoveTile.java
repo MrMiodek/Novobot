@@ -1,9 +1,9 @@
 package elements.actions;
 
 import elements.Alliance;
-import elements.board.Board;
-import elements.board.Coordinates;
-import elements.board.Field;
+import elements.Board;
+import elements.Coordinates;
+import elements.Field;
 import elements.gamestate.NanahoshiState;
 import elements.tiles.Tile;
 

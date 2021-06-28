@@ -1,7 +1,7 @@
 package elements.actions;
 
 import elements.Alliance;
-import elements.board.Coordinates;
+import elements.Coordinates;
 import elements.directions.Direction;
 import elements.gamestate.NanahoshiState;
 import elements.tiles.ShipState;

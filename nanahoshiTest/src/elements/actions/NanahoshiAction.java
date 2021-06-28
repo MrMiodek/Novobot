@@ -2,7 +2,7 @@ package elements.actions;
 
 import boardgame.elements.Action;
 import elements.Alliance;
-import elements.board.Coordinates;
+import elements.Coordinates;
 import elements.gamestate.NanahoshiState;
 
 import java.util.List;

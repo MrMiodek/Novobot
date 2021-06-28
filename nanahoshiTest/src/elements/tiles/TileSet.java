@@ -1,7 +1,7 @@
 package elements.tiles;
 
 import elements.Alliance;
-import elements.board.Coordinates;
+import elements.Coordinates;
 import elements.directions.Direction;
 
 import java.util.ArrayList;
