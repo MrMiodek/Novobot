@@ -84,11 +84,17 @@ public class Board {
                 printInterLine() +
                 printRow(1) +
                 printInterLine() +
-                printRow(2);
+                printRow(2) +
+                printInterLine() +
+                printRowLabels();
+    }
+
+    private String printRowLabels() {
+        return "   | A | B | C\n";
     }
 
     private String printRow(int y){
-        return " "+sign(0,y) + " | " + sign(1,y) + " | " + sign(2,y)+"\n";
+        return " "+(y+1)+" | "+sign(0,y) + " | " + sign(1,y) + " | " + sign(2,y)+"\n";
     }
 
     private String sign(int x, int y){
@@ -96,7 +102,7 @@ public class Board {
     }
 
     private String printInterLine(){
-        return "---|---|---\n";
+        return "---|---|---|---\n";
     }
 
 

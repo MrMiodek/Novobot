@@ -12,7 +12,7 @@ public enum Lover implements GameActor {
         this.id = id;
     }
 
-    private static Lover getLover(int id){
+    static Lover getLover(int id){
         for(Lover lover : values()){
             if(lover.id == id){
                 return lover;

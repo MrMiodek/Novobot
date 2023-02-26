@@ -7,7 +7,7 @@ import elements.cards.CardTypes;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoveLetterConfig implements GameConfig<LoveLetterState> {
+public class LoveLetterConfig implements GameConfig<LoveLetterState, Lover> {
 
     int playerCount;
 
@@ -24,6 +24,15 @@ public class LoveLetterConfig implements GameConfig<LoveLetterState> {
                 visibleCards.add(cards.drawOne());
         }
         return new LoveLetterState(playerCount, visibleCards, cards);
+    }
+
+    @Override
+    public List<Lover> getListOfActors() {
+        ArrayList<Lover> actors = new ArrayList<>();
+        for(int i =0; i < playerCount; i++){
+            actors.add(Lover.getLover(i));
+        }
+        return actors;
     }
 
 }

@@ -30,7 +30,10 @@ public class TicTacToeAction implements Action<TicTacToeState, Sign> {
 
     @Override
     public String toString(){
-        return "Put "+s+" at (x,y):("+x+","+y+")";
+        int xCoordinateInt = 65+x;
+        int yCoordinate = y+1;
+        char xCoordinate = (char) xCoordinateInt;
+        return "Put "+s+" at ("+xCoordinate+","+yCoordinate+")";
     }
 
 

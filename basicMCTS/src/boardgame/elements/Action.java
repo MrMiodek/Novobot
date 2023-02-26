@@ -6,6 +6,8 @@ package boardgame.elements;
  */
 public interface Action <GS extends GameState, GA extends GameActor>{
 
+    //TODO: add system actions for randomness etc.
+
     /**
      * Applies action on given GameState object
      * @param gameState GameState object which should be modified by applying action

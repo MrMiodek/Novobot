@@ -13,4 +13,6 @@ public interface Agent<T extends GameState, A extends Action> {
      */
     A chooseActionToPlay(T gameState);
 
+    //TODO: add agent id/name
+
 }

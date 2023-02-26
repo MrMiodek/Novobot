@@ -41,7 +41,7 @@ public class LoveLetterAction implements Action<LoveLetterState, Lover> {
 
     @Override
     public String toString(){
-        return actor + " played " + card + additionalDescription + " on " + target;
+        return actor + " play " + card + additionalDescription + " on " + target;
     }
 
     @Override
